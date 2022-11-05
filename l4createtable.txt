@@ -1,0 +1,404 @@
+=>Choose Database
+USE wdf7107
+
+
+=>Show Tables
+SHOW TABLES;     (ku yout nay dae database htae ka table bl kyi lo ya)
+SHOW FULL TABLES;
+*Check table from currenet db to another db
+SHOW TABLES FROM databasename.tablename;(other database htae yout nay ll ko kyite tet database htae ka table columns kyi lo ya)
+SHOW TABLES FROM tablename IN databasename;
+SHOW FULL TABLES FROM databasename.tablename;
+SHOW FULL TABLES FROM tablename IN databasename;
+
+
+
+=>Show Table ( Table Structure )
+Method 1
+DESCRIBE tablename;
+DESC tablename;
+
+
+Method 2
+SHOW COLUMNS FROM tablename; (ku yout nay dae database htae ka table htae ka columns bl kyi lo ya)
+*Check table from currenet db to another db
+SHOW COULMNS FROM databasename.tablename;(other database htae yout nay ll ko kyite tet database htae ka table columns kyi lo ya)
+SHOW COLUMNS FROM tablename IN databasename;
+
+
+
+=>Create Table ( Syntax )
+
+CREATE TABLE tablename(
+    column1 datatype,
+    column2 datatype,
+    column3 datatype,
+    .....
+)
+
+
+CREATE TABLE persons(
+    personid INT,
+    firstname VARCHAR(255),
+    lastname VARCHAR(255),
+
+);
+
+
+
+=>Drop Table ( Single )
+DROP TABLE tablename;
+DROP TABLE IF EXISTS tablename;
+
+*Drop table from current db to another db
+DROP TABLE databasename.tablename;
+DROP TABLE IF EXISTS databasename.tablename;
+
+
+=>Drop Tables ( Multi )
+DROP TABLE tablename,tablename,tablename,...;
+DROP TABLE IF EXISTS databasename.tablename,databasename.tablename,databasename.tablename,....;
+
+*Drop table from current db to another db
+DROP TABLE databasename.tablename,databasename.tablename,...;
+DROP TABLE IF EXISTS databasename.tablename,databasename.tablename,...;
+
+
+------------------------------------------------------------------------------------
+
+
+*Exercises
+
+CREATE TABLE abc(
+    name VARCHAR(10)
+);
+
+#error (shi p thr kg ko pyn twr create lote lo)
+CREATE TABLE abc(
+    name VARCHAR(10)
+);
+
+#error ma tet to bu shi p thr lo pya ml
+CREATE TABLE IF NOT EXISTS abc(
+    name VARCHAR(10)
+);
+
+
+=>TRUNCATE 
+
+CREATE TABLE IF NOT EXISTS monitors(
+    brand VARCHAR(100),
+    price INT
+);
+
+DESC monitors;
+DESCRIPE monitors;
+
+
+SELECT * FROM monitors;
+
+DROP TABLE IF EXISTS wdf7107.monitors; (table kyi pr pyat ml)
+
+DELETE FROM monitors; (table htae ka info twe pl pyat ml truncate net tu)
+DELETE FROM wdf7107.monitors;
+
+TRUNCATE TABLE monitors; (table htae ka info twe pl pyat ml)
+TRUNCATE TABLE wdf7107.monitors;
+
+
+----------------------------------------------------------------
+
+
+
+=>Rename Table
+
+*Syntax
+
+ALTER TABLE tablename
+RENAME TO newtablename;
+
+
+CREATE TABLE stocks(
+    item VARCHAR(100),
+    stocks INT
+);
+
+SHOW TABLES;
+
+DESC stocks;
+
+
+INSERT INTO stocks(item,stocks)
+VALUES ('destop',20),
+       ('laptop',10),
+       ('projector',5);
+
+SELECT * FROM stocks;
+
+
+ALTER TABLE stocks
+RENAME TO itaccessories;
+
+SHOW TABLES;
+
+SELECT * FROM itaccessories;
+
+
+----------------------------------------------------------------
+
+
+=>Add New Columns to table 
+
+=Syntax (Single)
+
+Method 1 
+
+ALTER TABLE tablename 
+ADD COLUMN columnname datatype; 
+
+
+Method 2
+
+ALTER TABLE tablename 
+ADD COLUMN columnname datatype FIRST|AFTER existingcolumnname;
+
+
+
+=Syntax (Multi)
+
+
+Method 1 
+
+ALTER TABLE tablename 
+ADD COLUMN columnname1 datatype,
+ADD COLUMN columnname2 datatype;
+
+
+Method 2
+
+ALTER TABLE tablename 
+ADD COLUMN columnname1 datatype FIRST|AFTER existingcolumnname,
+ADD COLUMN columnname2 datatype FIRST|AFTER existingcolumnname;
+
+
+SELECT * FROM itaccessories;
+
+
+ALTER TABLE itaccessories
+ADD COLUMN brand VARCHAR(50);
+
+DESC itaccessories;
+
+SELECT * FROM itaccessories;
+
+
+*NOTE : FIRST for as the first filed name 
+ALTER TABLE itaccessories
+ADD COLUMN unitprice DECIMAL(10,2) NOT NULL FIRST;
+
+
+DESC itaccessories;
+SELECT * FROM itaccessories;
+
+
+ALTER TABLE itaccessories
+ADD COLUMN madeby VARCHAR(50) NOT NULL AFTER item;
+
+DESC itaccessories;
+SELECT * FROM itaccessories;
+
+
+
+=Exercise (Multi)
+
+
+ALTER TABLE itaccessories
+ADD COLUMN status INT AFTER brand,
+ADD COLUMN createdby INT NOT NULL AFTER status;
+
+DESC itaccessories;
+SELECT * FROM itaccessories;
+
+INSERT INTO itaccessories(unitprice,item,madeby,stocks,brand,status,createdby)
+VALUES (10,'keyboard','china','30','a4tech',1,'1001'),
+(5,'mouse','taiwan','50','logitech',1,'1008');
+
+SELECT * FROM itaccessories;
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+
+=>RENAME COLUMN in table 
+
+=Syntax 
+
+ALTER TABLE tablename 
+CHANGE COLUMN oldcolumn newcolumn datatype;
+
+
+ALTER TABLE itaccessories
+CHANGE COLUMN stocks totalqty INT;
+
+
+ALTER TABLE itaccessories
+CHANGE COLUMN madeby manufactureby VARCHAR(30);
+
+DESC itaccessories;
+SELECT * FROM itaccessories;
+
+
+ALTER TABLE itaccessories
+CHANGE COLUMN manufactureby manufactureby VARCHAR(50);
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+
+=>MODIFY COLUMN in the table (Use for change column data type)
+
+=Syntax (Single)
+
+ALTER TABLE tablename
+MODIFY columnname newdatatype;
+
+
+=Syntax (Multi)
+ALTER TABLE tablename 
+MODIFY columnname newdatatype,
+MODIFY columnname newdatatype;
+
+
+=Exercise (Single)
+
+DESC itaccessories;
+
+ALTER TABLE itaccessories
+MODIFY manufactureby VARCHAR(30);
+
+DESC itaccessories;
+SELECT * FROM itaccessories;
+
+
+ALTER TABLE itaccessories
+MODIFY manufactureby VARCHAR(50) NOT NULL;
+
+DESC itaccessories;
+
+ALTER TABLE itaccessories
+MODIFY item VARCHAR(100) NOT NULL;
+
+DESC itaccessories;
+SELECT * FROM itaccessories;
+
+
+=EXERCISE (Multi)
+
+DESC itaccessories;
+
+ALTER TABLE itaccessories
+MODIFY item VARCHAR(50) NULL,
+MODIFY brand VARCHAR(30);
+
+
+ALTER TABLE itaccessories
+MODIFY item VARCHAR(50) NULL,
+MODIFY brand VARCHAR(30);
+
+
+#error = bcz of NULL already in data table (sayar mr tet)
+ALTER TABLE itaccessories
+MODIFY status INT NOT NULL,
+
+
+=>Move Column 
+
+ALTER TABLE itaccessories
+MODIFY unitprice DECIMAL(12,2) NOT NULL
+AFTER brand;
+
+DESC itaccessories;
+SELECT * FROM itaccessories;
+
+----------------------------------------------------------------------------
+
+=>Drop Columns in table 
+
+=Syntax (Single)
+ALTER TABLE tablename
+DROP COLUMN colunname;
+
+=Syntax (Multi)
+ALTER TABLE tablename
+DROP COLUMN colunname,
+DROP COLUMN columname;
+
+
+=Exercise 
+
+DESC itaccessories;
+SELECT * FROM itaccessories;
+
+ALTER TABLE itaccessories
+DROP COLUMN status;
+
+ALTER TABLE itaccessories
+DROP COLUMN manufactureby,
+DROP COLUMN createdby;
+
+SELECT * FROM itaccessories;
+
+----------------------------------------------------------------------------
+
+=>ADD PRIMARY key 
+
+
+=Method 1
+
+DESC itaccessories;
+SELECT * FROM itaccessories;
+
+ALTER TABLE itaccessories
+ADD COLUMN id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
+
+DESC itaccessories;
+SELECT * FROM itaccessories;
+
+SHOW INDEX FROM itaccessories;
+
+ALTER TABLE itaccessories
+DROP COLUMN id;
+
+DESC itaccessories;
+SHOW INDEX FROM itaccessories;
+
+
+=Method 2
+
+ALTER TABLE itaccessories
+ADD COLUMN id INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY(id);
+
+
+DESC itaccessories;
+SELECT * FROM itaccessories;
+SHOW INDEX FROM itaccessories;
+
+
+---------------------------------------------------------------------------------------------------------------
+
+
+=>Drop PRIMARY KEY 
+
+
+DESC itaccessories;
+SELECT * FROM itaccessories;
+SHOW INDEX FROM itaccessories;
+
+
+*ERROR = we need to remove auto increment (by modify)
+ALTER TABLE itaccessories DROP PRIMARY KEY;
+
+
+ALTER TABLE itaccessories MODIFY id INT NOT NULL;
+ALTER TABLE itaccessories DROP PRIMARY KEY;

@@ -1,0 +1,27 @@
+=>Show Databases
+SHOW DATABASES;
+
+=>Create Database
+CREATE DATABASE wdf7107
+
+=>Delete Database
+DROP DATABASE wdf7107;
+
+=>Choose Database
+USE wdf7107;
+
+
+
+=> About Database Naming
+
+*CAN CREATE
+Create Database book_shop;
+Create Database SchoolApp;
+Create Database bookingSystem;
+
+*CAN'T CREATE 
+CAN'T CREATE My App;
+CAN'T CREATE My$#App;
+
+
+-----------------------------------------------------------

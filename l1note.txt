@@ -1,0 +1,56 @@
+CRUD
+Create
+read
+update
+delete
+admin
+analysis
+
+db2
+1.temp storage( client sidw - wen browser )
+2.par storage ( server side )
+
+Sever Side(2 Type)
+1.SQL Database
+==>MySql
+PostgraSQL
+SQlite
+QRACLE
+MSSQL SERVER
+etc....
+
+
+2.No-SQL Database
+==>mongodb
+redis
+aws
+
+SQL= Structured Query Language
+
+RDBMS
+Relational DataBase Management System
+
+
+FOR CREATING DATABASE
+
+give databse name
+choose uttf_unicode_ci
+
+
+for Type
+
+int       ==    only num
+varchar   == 	text , number
+
+
+homework
+
+db name = abccompanies
+
+table
+emplyoess
+id
+firstname
+lastname
+phone
+address
